@@ -1,6 +1,9 @@
 
 #coverage
+.deps
+.DS_Store
 htmlcov
+venv
 coverage
 .coverage
 *.sw[pq]
