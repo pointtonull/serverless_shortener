@@ -33,6 +33,12 @@ def get_root():
     return {"service": "serverless url shortener", "endpoints": endpoints}
 
 
+@app.route('/request')
+def get_request():
+    """Describe current request context"""
+    return app.current_request.to_dict()
+
+
 @app.route('/short')
 def get_create_short():
     """Receives url as URL param <Q>:
@@ -42,7 +48,10 @@ def get_create_short():
         raise BadRequestError("expected '?q=url'")
     long_url = app.current_request.query_params["q"]
     short_url = URLS.shorten(long_url)
-    return {'short_url': short_url}
+    host = app.current_request.headers.get("host", "localhost:8000")
+    path = app.current_request.context.get("path", "/").split("/")[1]
+    complete_url = "/".join((host, path, short_url)).replace("//", "/")
+    return {'short_url': complete_url}
 
 
 @app.route('/short', methods=['POST'])
@@ -55,7 +64,10 @@ def post_create_short():
     data = app.current_request.json_body
     long_url = data["long_url"]
     short_url = URLS.shorten(long_url)
-    return {'short_url': short_url}
+    host = app.current_request.headers.get("host", "localhost:8000")
+    path = app.current_request.context.get("path", "/").split("/")[0]
+    complete_url = "/".join((host, path, short_url)).replace("//", "/")
+    return {'short_url': complete_url}
 
 
 @app.route('/{short_url}')

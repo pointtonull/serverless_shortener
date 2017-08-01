@@ -13,7 +13,7 @@ serverless aproach. It includes good practices structure for:
 For this it declares and deploys this infraestructure:
 
 - the code in lambda functions
-- a apigateway that triger the functions
+- a cloudfront/api-gateway that exposes the functions as a restfull api
 - a dynamodb table to store the urls
 - a role with policies to allow the parts to interact
 
