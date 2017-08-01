@@ -1,32 +1,33 @@
 # Serverless URL Shortener
 
-This is a toy implementation of a URL Shortener service with a
-serverless aproach. It includes good practices structure for:
+This is a diferent implementation of a PoC URL Shortener. I've done this one in
+an attempt to think outside of the server to tackle scalability issues from the
+very begining. For this it difines and deploys this infraestructure:
 
-- predictable development enviroment setup with GNU Make
-- testing and coverage enabled
-- local dependences
-- sub-modules
-- direct deployment
-- pipeline deployment
-
-For this it declares and deploys this infraestructure:
-
-- the code in lambda functions
-- a cloudfront/api-gateway that exposes the functions as a restfull api
-- a dynamodb table to store the urls
-- a role with policies to allow the parts to interact
+- Lambda functions: code logic
+- Cloudfront/API-Gateway: that exposes the functions as a restfull api
+- Dynamodb table: our hash distributed table
+- Needed roles and policies for this components
 
 Since DynamoDB is the botleneck, this app should scale up to read/write
 throuput capacity. The tables are created with auto-scale by default, so, with
-sostained high load it with scale up and keep with the load. The only limit is
-in your wallet.
+sustained high load it will scale-up and keep up with any load. The only limit
+is in your wallet.
 
-## Overview
+- No need to worry about scaling since Amazon takes care of it nicely
+- High availability of our backend services
+- Resiliency since each execution is contained and isolated, and thus have no
+  impact on other executions
+- Great to handle spiky workload without paying any extra computing
+
+Limitations of the approach?, there is not a way to implement socket endpoints
+at the moment.
 
 While the problem could be resolved faster and easier with any of several
 micro-framework available for Python. I am using a complete serveless to show
-how simple it can be to create fully scalable solutions.
+how simple cat be to create highly scalable solutions.
+
+## Source Code
 
 ### src/app.py
 
@@ -46,15 +47,36 @@ time. But in my experience this reduces the surface of error and enables new
 developers to get to speed faster.
 
 
-## Dependencies
+### Dependencies
 
-- It should run with Python2.+ and Python3+ (use Python3, please)
-- It doesn't have external dependences (they would be in requirement.txt if
-  any)
+- It should run with any version of Python2.+
+- There are two requirements.txt, [the first one][req1] if for the project
+  managment and [the another][req1] is for Lambda Functions themselves.
 
-## How to build/run
+## How to run/deploy
 
-To clone a local copy:
+### Credentials
+
+Before you can run/deploy the application, be sure you have credentials
+configured.  If you have previously configured your machine to run boto3 (the
+AWS SDK for Python) or the AWS CLI then you can skip this section.
+
+If this is your first time configuring credentials for AWS you can follow these
+steps to quickly get started:
+
+```sh
+$ mkdir ~/.aws
+$ cat >> ~/.aws/config
+[default]
+aws_access_key_id=YOUR_ACCESS_KEY_HERE
+aws_secret_access_key=YOUR_SECRET_ACCESS_KEY
+region=YOUR_REGION (such as us-west-2, us-west-1, etc)
+Assuming you have your '~/.aws/config' file defined. 
+```
+
+### Building
+
+To clone a local of the project:
 
 ```sh
 git clone git@github.com:pointtonull/serverless_shortener.git
@@ -70,6 +92,8 @@ make deps
 The mechanism used by this command should work in any Posix enviroment but I
 was not able to test on legacy systems, if you find a problem please issue a
 bug.
+
+### Testing
 
 To run tests and coverage you can use the respective targets:
 
@@ -148,7 +172,7 @@ curl -s localhost:8000| jq .
 The root endpoint does instrospection and describes the service. If you dont
 have 'jq' installed you may want to use your browser.
 
-## Deploying
+### Deploying
 
 Additionally, all you need to deploy is to run:
 ```sh
@@ -209,5 +233,7 @@ There is a live instance running on https://pp7yyf75sb.execute-api.eu-west-1.ama
 [app]: https://github.com/pointtonull/serverless_shortener/blob/master/src/app.py#L17
 [Urls]: https://github.com/pointtonull/serverless_shortener/blob/master/src/chalicelib/database.py#L38
 [getuid]: https://github.com/pointtonull/serverless_shortener/blob/master/src/chalicelib/database.py#L96
+[req1]: https://github.com/pointtonull/serverless_shortener/blob/master/requirements.txt
+[req2]: https://github.com/pointtonull/serverless_shortener/blob/master/src/requirements.txt
 
 <!-- vim: set sw=4 et ts=4 :-->
