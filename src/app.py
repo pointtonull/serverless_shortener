@@ -41,8 +41,9 @@ def get_create_short():
     if not app.current_request.query_params:
         raise BadRequestError("expected '?q=url'")
     long_url = app.current_request.query_params["q"]
+    host = app.current_request.headers.get("host")
     short_url = URLS.shorten(long_url)
-    return {'short_url': short_url}
+    return {'short_url': "%s/%s" % (host, short_url)}
 
 
 @app.route('/short', methods=['POST'])
@@ -54,8 +55,9 @@ def post_create_short():
     """
     data = app.current_request.json_body
     long_url = data["long_url"]
+    host = app.current_request.headers.get("host")
     short_url = URLS.shorten(long_url)
-    return {'short_url': short_url}
+    return {'short_url': "%s/%s" % (host, short_url)}
 
 
 @app.route('/{short_url}')
