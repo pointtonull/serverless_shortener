@@ -1,5 +1,6 @@
 
 #coverage
+src/.chalice/deployments/
 .deps
 .DS_Store
 htmlcov
