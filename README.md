@@ -149,8 +149,8 @@ The root endpoint does instrospection and describes the service. If you dont
 have 'jq' installed you may want to use your browser.
 
 There is a live instance running on https://eaqpv7zc11.execute-api.eu-west-1.amazonaws.com/dev/
-To register a new url you can run: https://eaqpv7zc11.execute-api.eu-west-1.amazonaws.com/dev/short?q=http://Engrish.com
-To use a shortened url you can go to: https://eaqpv7zc11.execute-api.eu-west-1.amazonaws.com/dev/n1
+- To register a new url you can run: https://eaqpv7zc11.execute-api.eu-west-1.amazonaws.com/dev/short?q=http://Engrish.com
+- To use a shortened url you can go to: https://eaqpv7zc11.execute-api.eu-west-1.amazonaws.com/dev/n1
 
 
 [app]: https://github.com/pointtonull/serverless_shortener/blob/master/src/app.py#L17
