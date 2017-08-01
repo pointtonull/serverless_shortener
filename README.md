@@ -207,7 +207,7 @@ There is a live instance running on https://pp7yyf75sb.execute-api.eu-west-1.ama
 
 
 [app]: https://github.com/pointtonull/serverless_shortener/blob/master/src/app.py#L17
-[Urls]: https://github.com/pointtonull/serverless_shortener/blob/master/src/celib/database.py#L38
-[getuid]: https://github.com/pointtonull/serverless_shortener/blob/master/src/celib/database.py#L96
+[Urls]: https://github.com/pointtonull/serverless_shortener/blob/master/src/chalicelib/database.py#L38
+[getuid]: https://github.com/pointtonull/serverless_shortener/blob/master/src/chalicelib/database.py#L96
 
 <!-- vim: set sw=4 et ts=4 :-->
