@@ -51,7 +51,7 @@ developers to get to speed faster.
 
 - It should run with any version of Python2.+
 - There are two requirements.txt, [the first one][req1] if for the project
-  managment and [the another][req1] is for Lambda Functions themselves.
+  managment and [the another][req2] is for Lambda Functions themselves.
 
 ## How to run/deploy
 
@@ -229,11 +229,18 @@ There is a live instance running on https://pp7yyf75sb.execute-api.eu-west-1.ama
 - To register a new url you can run: https://pp7yyf75sb.execute-api.eu-west-1.amazonaws.com/dev/short?q=http://Engrish.com
 - To use a shortened url you can go to: https://pp7yyf75sb.execute-api.eu-west-1.amazonaws.com/dev/n1
 
+### Deploying to production
+
+Well, if everything went well on 'dev' (the default stage) you can now
+deploy to production.
+
+For this you can pass the 'STAGE' flag to 'make'. The Enviroment variables and other per/stage configuration can be defined [here][config].
 
 [app]: https://github.com/pointtonull/serverless_shortener/blob/master/src/app.py#L17
 [Urls]: https://github.com/pointtonull/serverless_shortener/blob/master/src/chalicelib/database.py#L38
 [getuid]: https://github.com/pointtonull/serverless_shortener/blob/master/src/chalicelib/database.py#L96
 [req1]: https://github.com/pointtonull/serverless_shortener/blob/master/requirements.txt
 [req2]: https://github.com/pointtonull/serverless_shortener/blob/master/src/requirements.txt
+[config]: https://github.com/pointtonull/serverless_shortener/blob/master/src/.chalice/config.json
 
 <!-- vim: set sw=4 et ts=4 :-->
