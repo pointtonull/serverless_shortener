@@ -148,9 +148,62 @@ curl -s localhost:8000| jq .
 The root endpoint does instrospection and describes the service. If you dont
 have 'jq' installed you may want to use your browser.
 
-There is a live instance running on https://eaqpv7zc11.execute-api.eu-west-1.amazonaws.com/dev/
-- To register a new url you can run: https://eaqpv7zc11.execute-api.eu-west-1.amazonaws.com/dev/short?q=http://Engrish.com
-- To use a shortened url you can go to: https://eaqpv7zc11.execute-api.eu-west-1.amazonaws.com/dev/n1
+## Deploying
+
+Additionally, all you need to deploy is to run:
+```sh
+$ make deploy
+chalice --project-dir /Users/ccabrera/programacion/github/serverless_shortener/src deploy --profile tudev --no-autogen-policy --stage dev
+Initial creation of lambda function.
+Creating role
+The following execution policy will be used:
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ],
+      "Resource": "arn:aws:logs:*:*:*",
+      "Effect": "Allow"
+    },
+    {
+      "Action": [
+        "dynamodb:*"
+      ],
+      "Resource": [
+        "arn:aws:dynamodb:*:*:table/dev-urls"
+      ],
+      "Effect": "Allow"
+    }
+  ]
+}
+Would you like to continue?  [Y/n]: y
+Creating deployment package.
+Initiating first time deployment...
+Deploying to: dev
+https://pp7yyf75sb.execute-api.eu-west-1.amazonaws.com/dev/
+```
+
+You can specify **AWS_PROFILE** as a enviroment variable or as a Make flag.
+To delete an existing stack you can run:
+
+```sh
+$ make delete
+chalice --project-dir /Users/ccabrera/programacion/github/serverless_shortener/src delete --profile tudev --stage dev
+Deleting rest API eaqpv7zc11
+Deleting lambda function shortener-dev
+Delete the role shortener-dev? [y/N]: y
+Deleting role name shortener-dev
+```
+
+This will delete all but the DynamoDB table.
+
+There is a live instance running on https://pp7yyf75sb.execute-api.eu-west-1.amazonaws.com/dev/
+- To register a new url you can run: https://pp7yyf75sb.execute-api.eu-west-1.amazonaws.com/dev/short?q=http://Engrish.com
+- To use a shortened url you can go to: https://pp7yyf75sb.execute-api.eu-west-1.amazonaws.com/dev/n1
 
 
 [app]: https://github.com/pointtonull/serverless_shortener/blob/master/src/app.py#L17

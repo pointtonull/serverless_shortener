@@ -3,7 +3,7 @@
     "region": "eu-west-1",
     "api_handler_name": "shortener-dev",
     "api_handler_arn": "arn:aws:lambda:eu-west-1:199872814879:function:shortener-dev",
-    "rest_api_id": "eaqpv7zc11",
+    "rest_api_id": "pp7yyf75sb",
     "lambda_functions": {},
     "chalice_version": "1.0.0",
     "api_gateway_stage": "dev",
