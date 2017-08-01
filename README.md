@@ -4,10 +4,10 @@ This is a diferent implementation of a PoC URL Shortener. I've done this one in
 an attempt to think outside of the server to tackle scalability issues from the
 very begining. For this it difines and deploys this infraestructure:
 
-- Lambda functions: code logic
-- Cloudfront/API-Gateway: that exposes the functions as a restfull api
-- Dynamodb table: our hash distributed table
-- Needed roles and policies for this components
+- Lambda functions: bussiness logic
+- Cloudfront/API-Gateway: exposes the functions as a restfull api
+- Dynamodb table: our distributed hash table
+- Needed roles and policies for these components
 
 Since DynamoDB is the botleneck, this app should scale up to read/write
 throuput capacity. The tables are created with auto-scale by default, so, with
@@ -38,7 +38,7 @@ Function.
 
 [Urls][Urls] this class implements the interface for dynamo and the model logic.
 It's '__init__' method ensure the table exists.
-I, as well, implements a missing DynamoDB feature, atomic [autoincremental uid][getuid].
+I, as well, implements a missing DynamoDB feature, [atomic autoincremental uid][getuid].
 
 ### Makefile
 
