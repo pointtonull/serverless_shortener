@@ -54,7 +54,7 @@ def get_create_short():
     return {'short_url': complete_url}
 
 
-@app.route('/short', methods=['POST'])
+@app.route('/shorten_url', methods=['POST'])
 def post_create_short():
     """Receives url as DATA:
         {"long_url": "http://google.com"}
