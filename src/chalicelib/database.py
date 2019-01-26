@@ -1,5 +1,5 @@
 """
-Database intarface
+Database interface
 """
 
 import os
