@@ -1,6 +1,6 @@
 SRC = $(PWD)/src
 REQUIREMENTS = $(SRC)/requirements.txt
-AWS_PROFILE = tudev
+AWS_PROFILE = default
 PYTHON = python
 CHALICE = chalice --project-dir $(SRC)
 STAGE = dev
